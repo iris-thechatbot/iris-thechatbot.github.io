@@ -18,6 +18,6 @@ Use Iris to rewire your mind to improve your emotional health. Fight off depress
 
 Give it a go!
 
-## [Try it out](http://jef.works/ELIZAplus/)
+## [Try it out](https://jean.fan/ELIZAplus/)
 ![](demo.gif)
 
