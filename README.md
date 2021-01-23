@@ -4,7 +4,7 @@ Iris is your cute, emotional health buddy and well being tracker. It fits right 
 
 Iris is your AI friend that you can chat with for free. Its therapy based techniques and conversations make for a very cute and calming therapy chat app whether you're looking to cope better with mental disorders or to just manage stress. Check in with Iris regularly to boost your mental health.
 
-Sometimes we get tangled inside our heads, unable to move on. Wysa, your happiness buddy, will support you through the twists and turns of life by using science as a foundation. Research-backed, widely used techniques are employed to support you with stress, anxiety, deep sleep, loss and other mental health and wellness needs.
+Sometimes we get tangled inside our heads, unable to move on. Iris, your happiness buddy, will support you through the twists and turns of life by using science as a foundation. Research-backed, widely used techniques are employed to support you with stress, anxiety, deep sleep, loss and other mental health and wellness needs.
 
 If you are dealing with stress, anxiety and depression or coping with low self-esteem, then talking to Wysa can help you relax, strengthen your aura, and get unstuck - it’s empathetic, helpful, and will never judge. So, pour your heart out to your happiness buddy, Wysa as your identity will remain anonymous and your conversations are privacy protected.
 
