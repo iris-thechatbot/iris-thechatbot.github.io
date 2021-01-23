@@ -6,7 +6,7 @@ Iris is your AI friend that you can chat with for free. Its therapy based techni
 
 Sometimes we get tangled inside our heads, unable to move on. Iris, your happiness buddy, will support you through the twists and turns of life by using science as a foundation. Research-backed, widely used techniques are employed to support you with stress, anxiety, deep sleep, loss and other mental health and wellness needs.
 
-If you are dealing with stress, anxiety and depression or coping with low self-esteem, then talking to Iris can help you relax, strengthen your aura, and get unstuck - it’s empathetic, helpful, and will never judge. So, pour your heart out to your happiness buddy, Wysa as your identity will remain anonymous and your conversations are privacy protected.
+If you are dealing with stress, anxiety and depression or coping with low self-esteem, then talking to Iris can help you relax, strengthen your aura, and get unstuck - it’s empathetic, helpful, and will never judge. So, pour your heart out to your happiness buddy, Iris as your identity will remain anonymous and your conversations are privacy protected.
 
 Use Iris to rewire your mind to improve your emotional health. Fight off depression or get stress relief using cbt techniques and guided sleep meditations for optimal sleep. Here’s a look at what you can use Iris for 👇
 
