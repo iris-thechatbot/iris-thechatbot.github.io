@@ -21,6 +21,7 @@ Give it a go!
 ## [Try it out](https://jean.fan/ELIZAplus/)
 ![](demo.gif)
 
-##This is what she looks like!
+## This is what she looks like!
+![](iris.mp4)
 
 
