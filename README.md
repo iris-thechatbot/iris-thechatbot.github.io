@@ -18,7 +18,7 @@ Use Iris to rewire your mind to improve your emotional health. Fight off depress
 
 Give it a go!
 
-## [Try it out](https://jean.fan/ELIZAplus/)
+## [Try it out](https://iris-thechatbot.github.io/)
 ![This is what she looks like!](iris.mp4)
 
 
