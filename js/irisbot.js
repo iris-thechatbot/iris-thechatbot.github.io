@@ -165,7 +165,7 @@ IrisBot.prototype._init = function() {
 	}
 	else {
 		// default (should not match)
-		Irisot.prototype.preExp = /####/;
+		IrisBot.prototype.preExp = /####/;
 		IrisBot.prototype.pres['####']='####';
 	}
 	if ((global.irisPosts) && (irisPosts.length)) {
@@ -364,7 +364,7 @@ IrisBot.prototype._memGet = function() {
 }
 
 IrisBot.prototype.getFinal = function() {
-	if (!irisbot.prototype.global.irisFinals) return '';
+	if (!IrisBot.prototype.global.irisFinals) return '';
 	return irisFinals[Math.floor(Math.random()*irisFinals.length)];
 }
 
