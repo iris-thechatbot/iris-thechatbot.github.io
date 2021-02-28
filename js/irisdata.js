@@ -1,8 +1,8 @@
-// data for elizabot.js
+// data for irisbot.js
 // entries prestructured as layed out in Weizenbaum's description 
 // [cf: Communications of the ACM, Vol. 9, #1 (January 1966): p 36-45.]
 
-var elizaInitials = [
+var irisInitials = [
     "Hello! I'm Iris. Please tell me about your problems.",
 	// additions (not original)
 	"Hi, it's Iris! What's your name?","Hola, it's Iris. What's troubling you?","Namaste, I am your friend Iris!",
@@ -10,7 +10,7 @@ var elizaInitials = [
     "Iris here. Is something troubling you?"
 ];
 
-var elizaFinals = [
+var irisFinals = [
     "Goodbye. It was nice talking to you.",
     // additions (not original)
     "Goodbye. This was really a nice talk.",
@@ -19,7 +19,7 @@ var elizaFinals = [
     "Maybe we could discuss this moreover in our next session? Goodbye."
 ];
 
-var elizaQuits = [
+var irisQuits = [
     "bye",
     "goodbye",
     "done",
@@ -27,7 +27,7 @@ var elizaQuits = [
     "quit"
 ];
 
-var elizaPres = [
+var irisPres = [
     "dont", "don't",
     "cant", "can't",
     "wont", "won't",
@@ -48,7 +48,7 @@ var elizaPres = [
     "equivalent", "alike"
 ];
 
-var elizaPosts = [
+var irisPosts = [
     "am", "are",
     "your", "my",
     "me", "you",
@@ -60,7 +60,7 @@ var elizaPosts = [
     "i'm", "you are"
 ];
 
-var elizaSynons = {
+var irisSynons = {
     "be": ["am", "is", "are", "was"],
     "belief": ["feel", "think", "believe", "wish"],
     "cannot": ["can't"],
@@ -71,7 +71,7 @@ var elizaSynons = {
     "sad": ["unhappy", "depressed", "sick"]
 };
 
-var elizaKeywords = [
+var irisKeywords = [
 
     /*
       Array of
@@ -596,7 +596,7 @@ var elizaKeywords = [
 
 // regexp/replacement pairs to be performed as final cleanings
 // here: cleanings for multiple bots talking to each other
-var elizaPostTransforms = [
+var irisPostTransforms = [
 	/ old old/g, " old",
 	/\bthey were( not)? me\b/g, "it was $1 me",
 	/\bthey are( not)? me\b/g, "it is $1 me",
