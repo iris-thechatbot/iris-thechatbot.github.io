@@ -1,52 +1,52 @@
 /*
-  elizabot.js v.1.1 - ELIZA JS library (N.Landsteiner 2005)
-  Eliza is a mock Rogerian psychotherapist.
+  irisbot.js v.1.1 - IRIS JS library (N.Landsteiner 2005)
+  Iris is a mock Rogerian psychotherapist.
   Original program by Joseph Weizenbaum in MAD-SLIP for "Project MAC" at MIT.
-  cf: Weizenbaum, Joseph "ELIZA - A Computer Program For the Study of Natural Language
+  cf: Weizenbaum, Joseph "IRIS- A Computer Program For the Study of Natural Language
       Communication Between Man and Machine"
       in: Communications of the ACM; Volume 9 , Issue 1 (January 1966): p 36-45.
   JavaScript implementation by Norbert Landsteiner 2005; <http://www.masserk.at>
 
   synopsis:
 
-         new ElizaBot( <random-choice-disable-flag> )
-         ElizaBot.prototype.transform( <inputstring> )
-         ElizaBot.prototype.getInitial()
-         ElizaBot.prototype.getFinal()
-         ElizaBot.prototype.reset()
+         new IrisBot( <random-choice-disable-flag> )
+         IrisBot.prototype.transform( <inputstring> )
+         IrisBot.prototype.getInitial()
+         IrisBot.prototype.getFinal()
+         IrisBot.prototype.reset()
 
-  usage: var eliza = new ElizaBot();
-         var initial = eliza.getInitial();
-         var reply = eliza.transform(inputstring);
-         if (eliza.quit) {
+  usage: var iris = new IrisBot();
+         var initial = iris.getInitial();
+         var reply = iris.transform(inputstring);
+         if (iris.quit) {
              // last user input was a quit phrase
          }
 
          // method `transform()' returns a final phrase in case of a quit phrase
          // but you can also get a final phrase with:
-         var final = eliza.getFinal();
+         var final = iris.getFinal();
 
          // other methods: reset memory and internal state
-         eliza.reset();
+         iris.reset();
 
          // to set the internal memory size override property `memSize':
-         eliza.memSize = 100; // (default: 20)
+         iris.memSize = 100; // (default: 20)
 
          // to reproduce the example conversation given by J. Weizenbaum
          // initialize with the optional random-choice-disable flag
-         var originalEliza = new ElizaBot(true);
+         var originalIris = new IrisBot(true);
 
-  `ElizaBot' is also a general chatbot engine that can be supplied with any rule set.
-  (for required data structures cf. "elizadata.js" and/or see the documentation.)
+  `IrisBot' is also a general chatbot engine that can be supplied with any rule set.
+  (for required data structures cf. "irisdata.js" and/or see the documentation.)
   data is parsed and transformed for internal use at the creation time of the
-  first instance of the `ElizaBot' constructor.
+  first instance of the `IrisBot' constructor.
 
   vers 1.1: lambda functions in RegExps are currently a problem with too many browsers.
             changed code to work around.
 */
 
 
-function ElizaBot(noRandomFlag) {
+function IrisBot(noRandomFlag) {
 	this.noRandom= (noRandomFlag)? true:false;
 	this.capitalizeFirstLetter=true;
 	this.debug=false;
@@ -56,31 +56,31 @@ function ElizaBot(noRandomFlag) {
 	this.reset();
 }
 
-ElizaBot.prototype.reset = function() {
+IrisBot.prototype.reset = function() {
 	this.quit=false;
 	this.mem=[];
 	this.lastchoice=[];
-	for (var k=0; k<elizaKeywords.length; k++) {
+	for (var k=0; k<irisKeywords.length; k++) {
 		this.lastchoice[k]=[];
-		var rules=elizaKeywords[k][2];
+		var rules=irisKeywords[k][2];
 		for (var i=0; i<rules.length; i++) this.lastchoice[k][i]=-1;
 	}
 }
 
-ElizaBot.prototype._dataParsed = false;
+IrisBot.prototype._dataParsed = false;
 
-ElizaBot.prototype._init = function() {
+IrisBot.prototype._init = function() {
 	// install ref to global object
-	var global=ElizaBot.prototype.global=self;
+	var global=IrisBot.prototype.global=self;
 	// parse data and convert it from canonical form to internal use
 	// prodoce synonym list
 	var synPatterns={};
-	if ((global.elizaSynons) && (typeof elizaSynons == 'object')) {
-		for (var i in elizaSynons) synPatterns[i]='('+i+'|'+elizaSynons[i].join('|')+')';
+	if ((global.irisSynons) && (typeof irisSynons == 'object')) {
+		for (var i in irisSynons) synPatterns[i]='('+i+'|'+irisSynons[i].join('|')+')';
 	}
 	// check for keywords or install empty structure to prevent any errors
-	if ((!global.elizaKeywords) || (typeof elizaKeywords.length == 'undefined')) {
-		elizaKeywords=[['###',0,[['###',[]]]]];
+	if ((!global.irisKeywords) || (typeof irisKeywords.length == 'undefined')) {
+		irisKeywords=[['###',0,[['###',[]]]]];
 	}
 	// 1st convert rules to regexps
 	// expand synonyms and insert asterisk expressions for backtracking
@@ -90,9 +90,9 @@ ElizaBot.prototype._init = function() {
 	var are2=/(\S)\s*\*\s*$/;
 	var are3=/^\s*\*\s*$/;
 	var wsre=/\s+/g;
-	for (var k=0; k<elizaKeywords.length; k++) {
-		var rules=elizaKeywords[k][2];
-		elizaKeywords[k][3]=k; // save original index for sorting
+	for (var k=0; k<irisKeywords.length; k++) {
+		var rules=irisKeywords[k][2];
+		irisKeywords[k][3]=k; // save original index for sorting
 		for (var i=0; i<rules.length; i++) {
 			var r=rules[i];
 			// check mem flag and store it as decomp's element 2
@@ -151,45 +151,45 @@ ElizaBot.prototype._init = function() {
 		}
 	}
 	// now sort keywords by rank (highest first)
-	elizaKeywords.sort(this._sortKeywords);
+	irisKeywords.sort(this._sortKeywords);
 	// and compose regexps and refs for pres and posts
-	ElizaBot.prototype.pres={};
-	ElizaBot.prototype.posts={};
-	if ((global.elizaPres) && (elizaPres.length)) {
+	IrisBot.prototype.pres={};
+	IrisBot.prototype.posts={};
+	if ((global.irisPres) && (irisPres.length)) {
 		var a=new Array();
-		for (var i=0; i<elizaPres.length; i+=2) {
-			a.push(elizaPres[i]);
-			ElizaBot.prototype.pres[elizaPres[i]]=elizaPres[i+1];
+		for (var i=0; i<irisPres.length; i+=2) {
+			a.push(irisPres[i]);
+			IrisBot.prototype.pres[irisPres[i]]=irisPres[i+1];
 		}
-		ElizaBot.prototype.preExp = new RegExp('\\b('+a.join('|')+')\\b');
+		IrisBot.prototype.preExp = new RegExp('\\b('+a.join('|')+')\\b');
 	}
 	else {
 		// default (should not match)
-		ElizaBot.prototype.preExp = /####/;
-		ElizaBot.prototype.pres['####']='####';
+		Irisot.prototype.preExp = /####/;
+		IrisBot.prototype.pres['####']='####';
 	}
-	if ((global.elizaPosts) && (elizaPosts.length)) {
+	if ((global.irisPosts) && (irisPosts.length)) {
 		var a=new Array();
-		for (var i=0; i<elizaPosts.length; i+=2) {
-			a.push(elizaPosts[i]);
-			ElizaBot.prototype.posts[elizaPosts[i]]=elizaPosts[i+1];
+		for (var i=0; i<irisPosts.length; i+=2) {
+			a.push(irisPosts[i]);
+			IrisBot.prototype.posts[irisPosts[i]]=irisPosts[i+1];
 		}
-		ElizaBot.prototype.postExp = new RegExp('\\b('+a.join('|')+')\\b');
+		IrisBot.prototype.postExp = new RegExp('\\b('+a.join('|')+')\\b');
 	}
 	else {
 		// default (should not match)
-		ElizaBot.prototype.postExp = /####/;
-		ElizaBot.prototype.posts['####']='####';
+		IrisBot.prototype.postExp = /####/;
+		IrisBot.prototype.posts['####']='####';
 	}
-	// check for elizaQuits and install default if missing
-	if ((!global.elizaQuits) || (typeof elizaQuits.length == 'undefined')) {
-		elizaQuits=[];
+	// check for irisQuits and install default if missing
+	if ((!global.irisQuits) || (typeof irisQuits.length == 'undefined')) {
+		irisQuits=[];
 	}
 	// done
-	ElizaBot.prototype._dataParsed=true;
+	IrisBot.prototype._dataParsed=true;
 }
 
-ElizaBot.prototype._sortKeywords = function(a,b) {
+IrisBot.prototype._sortKeywords = function(a,b) {
 	// sort by rank
 	if (a[1]>b[1]) return -1
 	else if (a[1]<b[1]) return 1
@@ -199,7 +199,7 @@ ElizaBot.prototype._sortKeywords = function(a,b) {
 	else return 0;
 }
 
-ElizaBot.prototype.transform = function(text) {
+IrisBot.prototype.transform = function(text) {
 	var rpl='';
 	this.quit=false;
 	// unify text string
@@ -215,8 +215,8 @@ ElizaBot.prototype.transform = function(text) {
 		var part=parts[i];
 		if (part!='') {
 			// check for quit expression
-			for (var q=0; q<elizaQuits.length; q++) {
-				if (elizaQuits[q]==part) {
+			for (var q=0; q<irisQuits.length; q++) {
+				if (irisQuits[q]==part) {
 					this.quit=true;
 					return this.getFinal();
 				}
@@ -235,8 +235,8 @@ ElizaBot.prototype.transform = function(text) {
 			}
 			this.sentence=part;
 			// loop trough keywords
-			for (var k=0; k<elizaKeywords.length; k++) {
-				if (part.search(new RegExp('\\b'+elizaKeywords[k][0]+'\\b', 'i'))>=0) {
+			for (var k=0; k<irisKeywords.length; k++) {
+				if (part.search(new RegExp('\\b'+irisKeywords[k][0]+'\\b', 'i'))>=0) {
 					rpl = this._execRule(k);
 				}
 				if (rpl!='') return rpl;
@@ -255,8 +255,8 @@ ElizaBot.prototype.transform = function(text) {
 	return (rpl!='')? rpl : 'I am at a loss for words.';
 }
 
-ElizaBot.prototype._execRule = function(k) {
-	var rule=elizaKeywords[k];
+IrisBot.prototype._execRule = function(k) {
+	var rule=irisKeywords[k];
 	var decomps=rule[2];
 	var paramre=/\(([0-9]+)\)/;
 	for (var i=0; i<decomps.length; i++) {
@@ -276,8 +276,8 @@ ElizaBot.prototype._execRule = function(k) {
 				this.lastchoice[k][i]=ri;
 			}
 			var rpl=reasmbs[ri];
-			if (this.debug) alert('match:\nkey: '+elizaKeywords[k][0]+
-				'\nrank: '+elizaKeywords[k][1]+
+			if (this.debug) alert('match:\nkey: '+irisKeywords[k][0]+
+				'\nrank: '+irisKeywords[k][1]+
 				'\ndecomp: '+decomps[i][0]+
 				'\nreasmb: '+rpl+
 				'\nmemflag: '+memflag);
@@ -318,14 +318,14 @@ ElizaBot.prototype._execRule = function(k) {
 	return '';
 }
 
-ElizaBot.prototype._postTransform = function(s) {
+IrisBot.prototype._postTransform = function(s) {
 	// final cleanings
 	s=s.replace(/\s{2,}/g, ' ');
 	s=s.replace(/\s+\./g, '.');
-	if ((this.global.elizaPostTransforms) && (elizaPostTransforms.length)) {
-		for (var i=0; i<elizaPostTransforms.length; i+=2) {
-			s=s.replace(elizaPostTransforms[i], elizaPostTransforms[i+1]);
-			elizaPostTransforms[i].lastIndex=0;
+	if ((this.global.irisPostTransforms) && (irisPostTransforms.length)) {
+		for (var i=0; i<irisPostTransforms.length; i+=2) {
+			s=s.replace(irisPostTransforms[i], irisPostTransforms[i+1]);
+			irisPostTransforms[i].lastIndex=0;
 		}
 	}
 	// capitalize first char (v.1.1: work around lambda function)
@@ -337,19 +337,19 @@ ElizaBot.prototype._postTransform = function(s) {
 	return s;
 }
 
-ElizaBot.prototype._getRuleIndexByKey = function(key) {
-	for (var k=0; k<elizaKeywords.length; k++) {
-		if (elizaKeywords[k][0]==key) return k;
+IrisBot.prototype._getRuleIndexByKey = function(key) {
+	for (var k=0; k<irisKeywords.length; k++) {
+		if (irisKeywords[k][0]==key) return k;
 	}
 	return -1;
 }
 
-ElizaBot.prototype._memSave = function(t) {
+IrisBot.prototype._memSave = function(t) {
 	this.mem.push(t);
 	if (this.mem.length>this.memSize) this.mem.shift();
 }
 
-ElizaBot.prototype._memGet = function() {
+IrisBot.prototype._memGet = function() {
 	if (this.mem.length) {
 		if (this.noRandom) return this.mem.shift();
 		else {
@@ -363,14 +363,14 @@ ElizaBot.prototype._memGet = function() {
 	else return '';
 }
 
-ElizaBot.prototype.getFinal = function() {
-	if (!ElizaBot.prototype.global.elizaFinals) return '';
-	return elizaFinals[Math.floor(Math.random()*elizaFinals.length)];
+IrisBot.prototype.getFinal = function() {
+	if (!irisbot.prototype.global.irisFinals) return '';
+	return irisFinals[Math.floor(Math.random()*irisFinals.length)];
 }
 
-ElizaBot.prototype.getInitial = function() {
-	if (!ElizaBot.prototype.global.elizaInitials) return '';
-	return elizaInitials[Math.floor(Math.random()*elizaInitials.length)];
+IrisBot.prototype.getInitial = function() {
+	if (!IrisBot.prototype.global.irisInitials) return '';
+	return irisInitials[Math.floor(Math.random()*irisInitials.length)];
 }
 
 
